@@ -5,7 +5,6 @@ import com.example.wechatgpt.controller.response.WechatMessageResponse;
 import com.example.wechatgpt.util.XMLUtil;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
-import sun.tools.jconsole.inspector.XMBean;
 
 import javax.xml.bind.JAXBException;
 
