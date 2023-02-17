@@ -1,19 +1,20 @@
 package com.example.wechatgpt.controller.response;
 
-import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
 import lombok.Data;
+
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  * 目前只处理文本形式
  * 先不抽父类
  */
 @Data
-@JacksonXmlRootElement(localName = "xml")
+@XmlRootElement(name = "xml")
 public class WechatMessageResponse {
   private String ToUserName;
   private String FromUserName;
-  private long CreateTime;
+  private Long CreateTime;
   private String MsgType;
-  private long MsgId;
+  private Long MsgId;
   private String Content;
 }

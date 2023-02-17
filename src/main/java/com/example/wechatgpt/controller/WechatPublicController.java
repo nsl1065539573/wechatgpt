@@ -8,7 +8,6 @@ import com.example.wechatgpt.util.CheckUtil;
 import com.example.wechatgpt.util.HttpUtil;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
@@ -52,15 +51,15 @@ public class WechatPublicController {
     params.put("top_p", 1);
     params.put("frequency_penalty", 0);
     params.put("stop", new String[]{"qwe", "qweqw"});
-    params.put("prompt", request.getContent());
-    System.out.println("look look 请求 " + request.getContent());
+    params.put("prompt", request.content);
+    System.out.println("look look 请求 " + request.content);
     Map<String, String> headerMap = new HashMap<>();
     headerMap.put("Authorization", "Bearer " + wechatPublicConfig.getApiKey());
     headerMap.put("Content-Type", "application/json");
     String res = HttpUtil.sendPost(wechatPublicConfig.getChatGptUrl(), params, headerMap);
     WechatMessageResponse response = new WechatMessageResponse();
-    response.setToUserName(request.getFromUserName());
-    response.setFromUserName(request.getToUserName());
+    response.setToUserName(request.fromUserName);
+    response.setFromUserName(request.toUserName);
     response.setCreateTime(new Date().getTime());
     response.setMsgType("text");
     ChatResponse chatResponse;

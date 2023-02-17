@@ -1,22 +1,24 @@
 package com.example.wechatgpt.controller.request;
 
-import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper;
-import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
 import lombok.Data;
+import lombok.ToString;
 
-@Data
-@JacksonXmlRootElement(localName = "xml")
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+
+@ToString
+@XmlRootElement(name = "xml")
 public class WechatMessageRequest {
-  @JacksonXmlElementWrapper(localName = "ToUserName")
-  private String toUserName;
-  @JacksonXmlElementWrapper(localName = "FromUserName")
-  private String fromUserName;
-  @JacksonXmlElementWrapper(localName = "CreateTime")
-  private String createTime;
-  @JacksonXmlElementWrapper(localName = "MsgType")
-  private String msgType;
-  @JacksonXmlElementWrapper(localName = "Content")
-  private String content;
-  @JacksonXmlElementWrapper(localName = "MsgId")
-  private String msgId;
+  @XmlElement(name = "ToUserName")
+  public String toUserName;
+  @XmlElement(name = "FromUserName")
+  public String fromUserName;
+  @XmlElement(name = "CreateTime")
+  public String createTime;
+  @XmlElement(name = "MsgType")
+  public String msgType;
+  @XmlElement(name = "Content")
+  public String content;
+  @XmlElement(name = "MsgId")
+  public String msgId;
 }
