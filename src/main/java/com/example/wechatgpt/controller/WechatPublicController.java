@@ -42,7 +42,7 @@ public class WechatPublicController {
     return "";
   }
 
-  @PostMapping(value = "/verify_wx_token", consumes = MediaType.APPLICATION_XML_VALUE, produces = MediaType.APPLICATION_XML_VALUE)
+  @PostMapping(value = "/verify_wx_token", consumes = MediaType.TEXT_XML_VALUE, produces = MediaType.APPLICATION_XML_VALUE)
   public WechatMessageResponse verifyWxTokenPost(@RequestBody WechatMessageRequest request) {
     Map<String, Object> params = new HashMap<>();
     params.put("model", "text-davinci-003");

@@ -17,7 +17,7 @@ public class TestController {
     return a + " callback";
   }
 
-  @PostMapping(value = "/testXml", consumes = MediaType.APPLICATION_XML_VALUE, produces = MediaType.APPLICATION_XML_VALUE)
+  @PostMapping(value = "/testXml", produces = MediaType.APPLICATION_XML_VALUE, consumes = MediaType.TEXT_XML_VALUE)
   public WechatMessageResponse testXml(@RequestBody WechatMessageRequest request) {
     System.out.println(request);
     WechatMessageResponse  response = new WechatMessageResponse();
