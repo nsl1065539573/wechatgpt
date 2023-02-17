@@ -6,12 +6,14 @@ import com.example.wechatgpt.controller.response.ChatResponse;
 import com.example.wechatgpt.controller.response.WechatMessageResponse;
 import com.example.wechatgpt.util.CheckUtil;
 import com.example.wechatgpt.util.HttpUtil;
+import com.example.wechatgpt.util.XMLUtil;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.xml.bind.JAXBException;
 import java.io.IOException;
 import java.util.Date;
 import java.util.HashMap;
@@ -43,15 +45,15 @@ public class WechatPublicController {
   }
 
   @PostMapping(value = "/verify_wx_token", consumes = MediaType.TEXT_XML_VALUE, produces = MediaType.APPLICATION_XML_VALUE)
-  public WechatMessageResponse verifyWxTokenPost(@RequestBody WechatMessageRequest request) {
+  public String verifyWxTokenPost(@RequestBody WechatMessageRequest request) throws JAXBException {
     Map<String, Object> params = new HashMap<>();
     params.put("model", "text-davinci-003");
     params.put("temperature", 0.9);
     params.put("max_tokens", 1000);
     params.put("top_p", 1);
     params.put("frequency_penalty", 0);
-    params.put("stop", new String[]{"qwe", "qweqw"});
-    params.put("prompt", request.content);
+    params.put("stop", new String[]{"end~"});
+    params.put("prompt", request.content + "end~");
     System.out.println("look look 请求 " + request.content);
     Map<String, String> headerMap = new HashMap<>();
     headerMap.put("Authorization", "Bearer " + wechatPublicConfig.getApiKey());
@@ -69,6 +71,8 @@ public class WechatPublicController {
     } catch (IOException e) {
       response.setContent("<![CDATA[网络异常，请稍后重试]]>");
     }
-    return response;
+    String xmlStr = XMLUtil.parseToXml(response);
+    xmlStr = xmlStr.substring(xmlStr.indexOf('>') + 1);
+    return xmlStr;
   }
 }

@@ -2,8 +2,12 @@ package com.example.wechatgpt.controller;
 
 import com.example.wechatgpt.controller.request.WechatMessageRequest;
 import com.example.wechatgpt.controller.response.WechatMessageResponse;
+import com.example.wechatgpt.util.XMLUtil;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+import sun.tools.jconsole.inspector.XMBean;
+
+import javax.xml.bind.JAXBException;
 
 /**
  * @Author: nansongling
@@ -18,10 +22,12 @@ public class TestController {
   }
 
   @PostMapping(value = "/testXml", produces = MediaType.APPLICATION_XML_VALUE, consumes = MediaType.TEXT_XML_VALUE)
-  public WechatMessageResponse testXml(@RequestBody WechatMessageRequest request) {
+  public String testXml(@RequestBody WechatMessageRequest request) throws JAXBException {
     System.out.println(request);
     WechatMessageResponse  response = new WechatMessageResponse();
     response.setContent("test");
-    return response;
+    String xmlStr = XMLUtil.parseToXml(response);
+    xmlStr = xmlStr.substring(xmlStr.indexOf('>') + 1);
+    return xmlStr;
   }
 }
