@@ -60,16 +60,16 @@ public class WechatPublicController {
     headerMap.put("Content-Type", "application/json");
     String res = HttpUtil.sendPost(wechatPublicConfig.getChatGptUrl(), params, headerMap);
     WechatMessageResponse response = new WechatMessageResponse();
-    response.setToUserName(request.fromUserName);
-    response.setFromUserName(request.toUserName);
-    response.setCreateTime(new Date().getTime());
-    response.setMsgType("text");
+    response.toUserName = request.fromUserName;
+    response.fromUserName = request.toUserName;
+    response.createTime = new Date().getTime();
+    response.msgType = "text";
     ChatResponse chatResponse;
     try {
       chatResponse = objectMapper.readValue(res, ChatResponse.class);
-      response.setContent("<![CDATA[" + chatResponse.getChoices().get(0).getText() + "]]>");
+      response.content = "<![CDATA[" + chatResponse.getChoices().get(0).getText() + "]]>";
     } catch (IOException e) {
-      response.setContent("<![CDATA[网络异常，请稍后重试]]>");
+      response.content = "<![CDATA[网络异常，请稍后重试]]>";
     }
     String xmlStr = XMLUtil.parseToXml(response);
     xmlStr = xmlStr.substring(xmlStr.indexOf('>') + 1);

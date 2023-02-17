@@ -30,7 +30,7 @@ public class HttpUtil {
       conn.setDoInput(true);
       //设置连接超时时间和读取超时时间
       conn.setConnectTimeout(30000);
-      conn.setReadTimeout(10000);
+      conn.setReadTimeout(30000);
       conn.setRequestProperty("Content-Type", "application/json");
       conn.setRequestProperty("Accept", "application/json");
       for (Map.Entry<String, String> entry : headerMap.entrySet()) {

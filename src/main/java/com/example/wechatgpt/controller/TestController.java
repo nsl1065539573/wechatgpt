@@ -24,7 +24,7 @@ public class TestController {
   public String testXml(@RequestBody WechatMessageRequest request) throws JAXBException {
     System.out.println(request);
     WechatMessageResponse  response = new WechatMessageResponse();
-    response.setContent("test");
+    response.content = "test";
     String xmlStr = XMLUtil.parseToXml(response);
     xmlStr = xmlStr.substring(xmlStr.indexOf('>') + 1);
     return xmlStr;
